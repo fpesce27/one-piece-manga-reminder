@@ -1,9 +1,12 @@
 "use client"
 import { useEffect, useState } from "react"
+import ShowChapter from "./ShowChapter"
+import { FullScreen, useFullScreenHandle } from "react-full-screen"
+import { Button } from "@nextui-org/react"
 
 export default function Home() {
-  const [images, setImages] = useState([])
-  const [error, setError] = useState(null)
+  const [images, setImages] = useState<string[]>([])
+  const handle = useFullScreenHandle()
 
   useEffect(() => {
     (async () => {
@@ -14,27 +17,19 @@ export default function Home() {
         }
       })
       const data = await res.json()
-      if (data.error) {
-        setError(data.error)
-        return
-      }
-      setImages(data)
+      setImages(data.images)
     })()
   }, [])
   
   return (
-    <div className="flex flex-col h-screen justify-center items-center">
-      <h1 className="text-4xl font-bold text-center">
-        One piece Manga Reminder
-      </h1>
-      {error && <p className="text-red-500">{error}</p>}
-      <div className="flex flex-wrap justify-center items-center">
-        {images.map((image, index) => (
-          <div key={index} className="m-2">
-            <img src={image} alt="manga" width={100} height={100}/>
-          </div>
-        ))}
-      </div>
+    <div style={{height: '100vh'}}>
+      <Button onClick={handle.enter}>
+        Pantalla Completa
+      </Button>
+
+      <FullScreen handle={handle} >
+        <ShowChapter images={images} />
+      </FullScreen>
     </div>
   )
 }
