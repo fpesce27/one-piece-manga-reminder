@@ -21,8 +21,8 @@ function ShowChapter({ images }: Props) {
         transitionTime={0}
       >
         
-        {images.map((image) => (
-          <div style={{height:'100vh'}}>
+        {images.map((image, index) => (
+          <div style={{height:'100vh'}} key={index}>
             <ShowMangaPanel image={image} />
           </div>
         ))}
