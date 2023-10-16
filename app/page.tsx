@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import ShowChapter from "./ShowChapter"
 import { FullScreen, useFullScreenHandle } from "react-full-screen"
-import { Button } from "@nextui-org/react"
+import { Button } from "@nextui-org/button"
 
 export default function Home() {
   const [images, setImages] = useState<string[]>([])
@@ -20,12 +20,33 @@ export default function Home() {
       setImages(data.images)
     })()
   }, [])
+
+  function handleForceUpdate() {
+    (async () => {
+      const res = await fetch("/api/forceUpdate", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const data = await res.json()
+
+      setImages(data.images)
+    })()
+  }
   
   return (
-    <div style={{height: '100vh'}}>
-      <Button onClick={handle.enter}>
-        Pantalla Completa
-      </Button>
+    <div className="h-screen">
+      <div className="buttonsContainer">
+        <Button onClick={handle.enter} className="button">
+          Pantalla Completa
+        </Button>
+
+        <Button onClick={handleForceUpdate} className="button">
+          Forzar Actualización
+        </Button>
+
+      </div>
 
       <FullScreen handle={handle} >
         <ShowChapter images={images} />

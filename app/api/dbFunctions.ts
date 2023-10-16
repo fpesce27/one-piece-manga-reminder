@@ -13,7 +13,7 @@ async function getChapterNumber() {
 async function postChapter(data: string[], capitulo: number){
     await db.collection("one-piece").doc("current").set({
         images: data,
-        lastChapter: capitulo + 1,
+        lastChapter: capitulo,
       }).then(() => {
         console.log("Document successfully written!");
       }).catch((error) => {

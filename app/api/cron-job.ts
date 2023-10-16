@@ -9,7 +9,7 @@ let tiempoPrimerTarea = '0 0 12 * * 3';
 // cada 1 hora
 let tiempoSegundaTarea = '0 0 * * * *';
 
-async function callAPI(capitulo: number): Promise<string[]> {
+export async function callAPI(capitulo: number): Promise<string[]> {
   let api = "https://images-from-url.vercel.app/api/images";
   let body = {
     "url": "https://www.animeallstar20.com/2023/10/one-piece-manga-" + (capitulo + 1) + "-espanol.html",
@@ -32,7 +32,7 @@ cron.schedule(tiempoPrimerTarea, async () => {
   let capitulo = await getChapterNumber();
   let response = await callAPI(capitulo);
   if (response.length !== 0) {
-    await postChapter(response, capitulo);
+    await postChapter(response, capitulo + 1);
     console.log('Se ha encontrado un capítulo nuevo, se ha actualizado la base de datos en el primer cron');
   } else {
     console.log('No hay capítulo nuevo, se ejecutará la actualizacion constante');

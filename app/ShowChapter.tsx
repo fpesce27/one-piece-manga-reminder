@@ -1,6 +1,5 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import { Image } from "@nextui-org/react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import { ShowMangaPanel } from './ShowMangaPanel';
 
@@ -9,6 +8,7 @@ interface Props {
 }
 
 function ShowChapter({ images }: Props) {
+
   return (
     <div style={{height:'100vh'}}>
       <Carousel

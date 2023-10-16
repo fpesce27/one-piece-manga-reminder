@@ -11,7 +11,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <NextUIProvider>
-        {children}
+          {children}
         </NextUIProvider>
       </body>
     </html>
